@@ -5,6 +5,14 @@ terraform {
       version = "3.29.0"
     }
   }
+
+  cloud {
+    organization = "demo-lab-hashicorp"
+
+    workspaces {
+      name = "azure-basic-nginx"
+    }
+  }
 }
 
 provider "azurerm" {
