@@ -20,13 +20,11 @@ variable "instance_size" {
 
 variable "extension_script" {
   type    = string
-  default = <<EOT
-  <<SETTINGS
-  {
-    "commandToExecute": "hostname && uptime"
-  }
-  SETTINGS"
-  EOT
+  default = <<SETTINGS
+ {
+  "commandToExecute": "hostname && uptime"
+ }
+SETTINGS
 
 }
 
