@@ -12,3 +12,8 @@ variable "prefix" {
   type    = string
   default = "vm"
 }
+
+variable "instance_size" {
+  type = string
+  default = "Standard_B1s"
+}

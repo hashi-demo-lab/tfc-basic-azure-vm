@@ -110,7 +110,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   name                            = "${var.prefix}-vm"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
-  size                            = "Standard_F2"
+  size                            = var.instance_size
   admin_username                  = "adminuser"
   admin_password                  = "P@ssw0rd1234!"
   
