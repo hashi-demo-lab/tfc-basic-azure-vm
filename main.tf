@@ -130,14 +130,11 @@ resource "azurerm_linux_virtual_machine" "main" {
 }
 
 resource "azurerm_virtual_machine_extension" "vmext" {
-  resource_group_name = data.azurerm_linux_virtual_machine.main.resource_group_name
-  location            = data.azurerm_linux_virtual_machine.main.location
-  name                = "${var.prefix}-vmext"
 
-  virtual_machine_name = data.azurerm_linux_virtual_machine.main.name
+  name                 = "${var.prefix}-vmext"
+  virtual_machine_id   = azurerm_linux_virtual_machine.main.id
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
-
   settings = var.extension_script
 }
