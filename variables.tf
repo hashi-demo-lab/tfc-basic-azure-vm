@@ -18,6 +18,11 @@ variable "instance_size" {
   default = "Standard_B1s"
 }
 
+variable "extension_name" {
+  type = string
+  default = "tfvmext"
+}
+
 variable "extension_script" {
   type    = string
   default = <<SETTINGS
