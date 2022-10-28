@@ -131,7 +131,7 @@ resource "azurerm_linux_virtual_machine" "main" {
 
 resource "azurerm_virtual_machine_extension" "vmext" {
 
-  name                 = "${var.prefix}-vmext"
+  name                 = "${var.prefix}-vmext1"
   virtual_machine_id   = azurerm_linux_virtual_machine.main.id
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
