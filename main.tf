@@ -30,7 +30,7 @@ data "hcp_packer_image" "azure_ubuntu_nginx" {
   bucket_name    = "azure-ubuntu-nginx"
   cloud_provider = "azure"
   iteration_id   = data.hcp_packer_iteration.ubuntu.ulid
-  region         = var.location
+  region         = var.region
 }
 
 resource "azurerm_resource_group" "main" {
@@ -122,12 +122,12 @@ resource "azurerm_linux_virtual_machine" "main" {
     azurerm_network_interface.internal.id,
   ]
 
-  source_image_reference {
+/*   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
     sku       = "16.04-LTS"
     version   = "latest"
-  }
+  } */
 
   os_disk {
     storage_account_type = "Standard_LRS"
