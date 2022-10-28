@@ -132,7 +132,7 @@ resource "azurerm_linux_virtual_machine" "main" {
 resource "azurerm_virtual_machine_extension" "vmext" {
   resource_group_name = data.azurerm_linux_virtual_machine.main.resource_group_name
   location            = data.azurerm_linux_virtual_machine.main.location
-  name                = "${data.azurerm_linux_virtual_machine.main.name}-vmext"
+  name                = "${var.prefix}-vmext"
 
   virtual_machine_name = data.azurerm_linux_virtual_machine.main.name
   publisher            = "Microsoft.Azure.Extensions"
