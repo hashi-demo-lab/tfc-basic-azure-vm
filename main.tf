@@ -107,13 +107,13 @@ resource "azurerm_network_interface_security_group_association" "main" {
 }
 
 resource "azurerm_linux_virtual_machine" "main" {
-  name                            = "${var.prefix}-vm"
-  resource_group_name             = azurerm_resource_group.main.name
-  location                        = azurerm_resource_group.main.location
-  size                            = var.instance_size
-  admin_username                  = "adminuser"
-  admin_password                  = "P@ssw0rd1234!"
-  
+  name                = "${var.prefix}-vm"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+  size                = var.instance_size
+  admin_username      = "adminuser"
+  admin_password      = "P@ssw0rd1234!"
+
   source_image_id = data.hcp_packer_image.azure_ubuntu_nginx.cloud_image_id
 
   disable_password_authentication = false
@@ -122,15 +122,22 @@ resource "azurerm_linux_virtual_machine" "main" {
     azurerm_network_interface.internal.id,
   ]
 
-/*   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
-  } */
 
   os_disk {
     storage_account_type = "Standard_LRS"
     caching              = "ReadWrite"
   }
+}
+
+resource "azurerm_virtual_machine_extension" "vmext" {
+  resource_group_name = data.azurerm_linux_virtual_machine.main.resource_group_name
+  location            = data.azurerm_linux_virtual_machine.main.location
+  name                = "${data.azurerm_linux_virtual_machine.main.name}-vmext"
+
+  virtual_machine_name = data.azurerm_linux_virtual_machine.main.name
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = var.extension_script
 }

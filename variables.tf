@@ -14,6 +14,19 @@ variable "prefix" {
 }
 
 variable "instance_size" {
-  type = string
+  type    = string
   default = "Standard_B1s"
 }
+
+variable "extension_script" {
+  type    = string
+  default = <<EOT
+  <<SETTINGS
+  {
+    "commandToExecute": "hostname && uptime"
+  }
+  SETTINGS"
+  EOT
+
+}
+
