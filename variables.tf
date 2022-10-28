@@ -22,7 +22,7 @@ variable "extension_script" {
   type    = string
   default = <<SETTINGS
  {
-  "commandToExecute": "hostname && uptime"
+  "commandToExecute": "cd /usr/share/nginx/html;git clone https://github.com/hashicorp-demo-lab/demo-static-content.git ."
  }
 SETTINGS
 
