@@ -26,6 +26,13 @@ data "hcp_packer_iteration" "ubuntu" {
   channel     = "production"
 }
 
+data "hcp_packer_image" "azure_ubuntu_nginx" {
+  bucket_name    = "azure-ubuntu-nginx"
+  cloud_provider = "azure"
+  iteration_id   = data.hcp_packer_iteration.ubuntu.ulid
+  region         = var.location
+}
+
 resource "azurerm_resource_group" "main" {
   name     = "${var.prefix}-resources"
   location = var.location
@@ -78,18 +85,18 @@ resource "azurerm_network_interface" "internal" {
 }
 
 resource "azurerm_network_security_group" "webserver" {
-  name                = "tls_webserver"
+  name                = "http_webserver"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   security_rule {
     access                     = "Allow"
     direction                  = "Inbound"
-    name                       = "tls"
+    name                       = "http"
     priority                   = 100
     protocol                   = "Tcp"
     source_port_range          = "*"
     source_address_prefix      = "*"
-    destination_port_range     = "443"
+    destination_port_range     = "80"
     destination_address_prefix = azurerm_network_interface.main.private_ip_address
   }
 }
@@ -106,6 +113,9 @@ resource "azurerm_linux_virtual_machine" "main" {
   size                            = "Standard_F2"
   admin_username                  = "adminuser"
   admin_password                  = "P@ssw0rd1234!"
+  
+  source_image_id = data.hcp_packer_image.azure_ubuntu_nginx.cloud_image_id
+
   disable_password_authentication = false
   network_interface_ids = [
     azurerm_network_interface.main.id,
