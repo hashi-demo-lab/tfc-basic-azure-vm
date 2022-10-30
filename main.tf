@@ -6,13 +6,13 @@ terraform {
     }
   }
 
-  cloud {
+/*   cloud {
     organization = "demo-lab-hashicorp"
 
     workspaces {
       name = "azure-basic-nginx"
     }
-  }
+  } */
 }
 
 provider "azurerm" {
