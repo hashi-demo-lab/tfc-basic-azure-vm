@@ -6,7 +6,7 @@ terraform {
     }
   }
 
-/*   cloud {
+  /*   cloud {
     organization = "demo-lab-hashicorp"
 
     workspaces {
