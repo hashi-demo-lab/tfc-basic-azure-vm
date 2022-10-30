@@ -27,7 +27,7 @@ variable "extension_script" {
   type    = string
   default = <<SETTINGS
  {
-  "commandToExecute": ""cd /tmp;git clone https://github.com/hashicorp-demo-lab/demo-static-content.git;cd /var/html/www;sudo cp -r /tmp/demo-static-content/. .;sudo systemctl restart nginx"
+  "commandToExecute": "cd /tmp;git clone https://github.com/hashicorp-demo-lab/demo-static-content.git;cd /var/html/www;sudo cp -r /tmp/demo-static-content/. .;sudo systemctl restart nginx"
  }
 SETTINGS
 
