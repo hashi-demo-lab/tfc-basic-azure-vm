@@ -23,6 +23,11 @@ variable "extension_name" {
   default = "tfvmext"
 }
 
+variable "admin_password" {
+  type      = string
+  sensitive = true
+}
+
 variable "extension_script" {
   type    = string
   default = <<SETTINGS
