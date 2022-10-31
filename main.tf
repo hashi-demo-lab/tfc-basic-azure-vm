@@ -111,8 +111,6 @@ resource "azurerm_linux_virtual_machine" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   size                = var.instance_size
-  admin_username      = "adminuser"
-  admin_password      = "P@ssw0rd1234!"
 
   source_image_id = data.hcp_packer_image.azure_ubuntu_nginx.cloud_image_id
 
